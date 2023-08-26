@@ -16,7 +16,7 @@ async function run(){
 
 await mongoose.connect("mongodb+srv://sashanknaga:12345@cluster0.p5nzmdd.mongodb.net/todolistDB")
 
-console.log("connection succesful");
+console.log("connection successful");
 
 const itemSchema=mongoose.Schema({
   name:String
