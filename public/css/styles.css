@@ -67,7 +67,9 @@ button {
   padding-bottom: 6px;
   border-width: 0;
 }
-
+#hide{
+  display: none;
+}
 input[type="text"] {
   text-align: center;
   height: 60px;

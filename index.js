@@ -92,7 +92,6 @@ app.post("/delete", async function(req, res){
     }
 );
 
-
 app.get("/:route", async function(req,res){
   const route=_.capitalize(req.params.route)
   List.findOne({name:route}).then((selectedList)=>{
@@ -111,6 +110,33 @@ app.get("/:route", async function(req,res){
   })
 
 });
+
+app.post("/edit",async (req,res)=>{
+  const id=req.body.id
+  const newName=req.body.newName
+  const listName=req.body.name
+  if(listName==="Today")
+  {
+  await Item.updateOne({_id:id},{name:newName})
+  res.redirect("/")
+  }
+  else{
+
+//await List.find({name:listName},{items:{}})
+   const list= (await List.find({name:listName}))[0]
+    const items=list.items
+    items.forEach(async element => {
+      const sid=element._id.toString()
+      if(id===sid){
+        element.name=newName
+        await list.save()
+      }
+    });
+   res.redirect("/"+listName)
+
+  }
+  
+})
 
 app.get("/about", function(req, res){
   res.render("about");
